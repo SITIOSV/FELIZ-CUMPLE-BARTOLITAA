@@ -203,11 +203,10 @@ footer{text-align:center;padding:30px 16px 60px;font-weight:700}
           <button class="btn sm alt" id="rm">🗑 Quitar del collage</button>
         </div>
         <div class="row2" style="margin-top:12px">
-          <button class="btn wa" id="wa">💬 Enviar por WhatsApp</button>
-          <button class="btn sm alt" id="dl">⬇ Descargar</button>
-          <button class="btn sm alt" id="sh">📤 Compartir…</button>
+                    <button class="btn sm alt" id="dl">⬇ Descargar</button>
+          <button class="btn wa" id="sh">📤 Compartir imagen</button>
         </div>
-        <div class="hint">Se guarda la imagen y se abre el chat de WhatsApp (+503 6964 2170). Ahí solo toca 📎 y elige la imagen.</div>
+        <div class="hint">«Compartir imagen» abre tus apps (WhatsApp, etc.) para enviar el collage. Si tu navegador no lo permite, se descarga la imagen.</div>
       </div>
     </div>
   </div>
@@ -504,15 +503,9 @@ function tapThumb(id){if(selSlot!=null){place(selSlot,id);return}armed=armed===i
 function exportCanvas(){const c=document.createElement('canvas');c.width=CW;c.height=CH;render(c.getContext('2d'),T(),assign,null,true);return c}
 function download(){const a=document.createElement('a');a.download='feliz-cumpleanos-collage.png';a.href=exportCanvas().toDataURL('image/png');document.body.appendChild(a);a.click();a.remove()}
 $('#dl').onclick=()=>{download();toast('✅ Imagen guardada')};
-$('#wa').onclick=()=>{
-  if(!assign.some(Boolean)){toast('Primero agrega al menos una foto al collage 📸');return}
-  download();
-  const msg=encodeURIComponent('¡Mira mi collage de cumpleaños! 💕 Gracias por todo, te quiero mucho. Feliz cumpleaños TKM 🎂');
-  const w=window.open('https://wa.me/'+WA_NUM+'?text='+msg,'_blank');if(!w)location.href='https://wa.me/'+WA_NUM+'?text='+msg;
-  toast('✅ Imagen guardada.<br>En el chat de WhatsApp toca 📎 y elige tu collage para enviarlo.',9000)};
 $('#sh').onclick=()=>{exportCanvas().toBlob(async b=>{const f=new File([b],'feliz-cumpleanos-collage.png',{type:'image/png'});
   if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:'Feliz cumpleaños',text:'¡Mi collage de cumpleaños! 💕'})}catch(e){}}
-  else{download();toast('Tu navegador no permite compartir directo; se descargó la imagen.')}},'image/png')};
+  else{download();toast('Tu navegador no permite compartir directo; se descargó la imagen. Ábrela en WhatsApp para enviarla 💌',7000)}},'image/png')};
 
 setTpl(0);autoFill();
 // pre-selecciona primer espacio libre
